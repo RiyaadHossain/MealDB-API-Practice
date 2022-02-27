@@ -20,10 +20,13 @@ const searchMeal = () => {
 };
 
 const printMeal = (data) => {
-  data?.forEach((element) => {
-    const div = document.createElement("div");
-    div.className = "col";
-    div.innerHTML = `
+  if (!data) {
+    errorMsg.innerHTML = `😥 No Result Found! 😓`;
+  } else {
+    data?.forEach((element) => {
+      const div = document.createElement("div");
+      div.className = "col";
+      div.innerHTML = `
         <div class="card h-100">
           <img src="${element.strMealThumb}" class="card-img-top" alt="...">
           <div class="card-body">
@@ -34,6 +37,7 @@ const printMeal = (data) => {
         </div>
         `;
 
-    mealContainer.appendChild(div);
-  });
+      mealContainer.appendChild(div);
+    });
+  }
 };
