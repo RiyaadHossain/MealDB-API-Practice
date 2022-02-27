@@ -9,6 +9,7 @@ const searchMeal = () => {
     inputMeal.value = "";
     errorMsg.innerHTML = `😣 Please Enter a valid Input 😔`;
   } else {
+    spinner('block')
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
     inputMeal.value = "";
     mealContainer.textContent = "";
@@ -21,7 +22,8 @@ const searchMeal = () => {
 
 const printMeal = (data) => {
   if (!data) {
-    errorMsg.innerHTML = `😥 No Result Found! 😓`;
+      errorMsg.innerHTML = `😥 No Result Found! 😓`;
+      spinner('none')
   } else {
     data?.forEach((element) => {
       const div = document.createElement("div");
@@ -37,7 +39,14 @@ const printMeal = (data) => {
         </div>
         `;
 
-      mealContainer.appendChild(div);
+        mealContainer.appendChild(div);
+        spinner('none')
     });
   }
 };
+
+
+// Spinner On/Off Function
+const spinner = style => {
+    document.getElementById('spinner').style.display = style
+}
