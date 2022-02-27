@@ -1,17 +1,26 @@
-const mealContainer = document.getElementById('meal-container')
+const mealContainer = document.getElementById("meal-container");
 const inputMeal = document.getElementById("input-meal");
+const errorMsg = document.getElementById("error-msg");
 
 const searchMeal = () => {
   const inputValue = inputMeal.value;
-  const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
-  fetch(url)
-    .then((res) => res.json())
-    .then((json) => printMeal(json.meals));
+  if (inputValue === "") {
+    mealContainer.textContent = "";
+    inputMeal.value = "";
+    errorMsg.innerHTML = `😣 Please Enter a valid Input 😔`;
+  } else {
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
+    inputMeal.value = "";
+    mealContainer.textContent = "";
+    errorMsg.innerHTML = "";
+    fetch(url)
+      .then((res) => res.json())
+      .then((json) => printMeal(json.meals));
+  }
 };
 
 const printMeal = (data) => {
-  data.forEach((element) => {
-    console.log(element);
+  data?.forEach((element) => {
     const div = document.createElement("div");
     div.className = "col";
     div.innerHTML = `
@@ -24,6 +33,7 @@ const printMeal = (data) => {
           </div>
         </div>
         `;
-      mealContainer.appendChild(div)
+
+    mealContainer.appendChild(div);
   });
 };
