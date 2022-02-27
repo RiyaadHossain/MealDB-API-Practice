@@ -55,12 +55,14 @@ const printSingle = (singleItem) => {
   console.log(singleItem);
 
   mealContainer.innerHTML = `
-  <div class="card text-center" style="width: 18rem;">
-    <img src="${singleItem.strMealThumb}" class="card-img-top" alt="...">
+  <div class="card mx-auto" style="width: 18rem;">
+    <img src="${singleItem.strMealThumb}" class="card-img-top img-fluid" alt="...">
     <div class="card-body">
-      <h5 class="card-title">${singleItem.strMeal}</h5>
-      <p class="card-text">${singleItem.strCategory}</p>
-      <a href="${singleItem.strYoutube}" class="btn btn-primary">Wathc Video</a>
+      <h4 class="card-title">${singleItem.strMeal}</h4>
+      <h6 class="card-text">Category: ${singleItem.strCategory}</h6>
+      <h6 class="card-text">Origin: ${singleItem.strArea}</h6>
+      <h6 class="card-text">Tag: ${singleItem.strTags}</h6>
+      <a href="${singleItem.strYoutube}" class="btn btn-primary">Watch Video</a>
     </div>
   </div>
   `;
