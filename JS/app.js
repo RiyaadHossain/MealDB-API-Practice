@@ -9,7 +9,7 @@ const searchMeal = () => {
     inputMeal.value = "";
     errorMsg.innerHTML = `😣 Please Enter a valid Input 😔`;
   } else {
-    spinner('block')
+    spinner("block");
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
     inputMeal.value = "";
     mealContainer.textContent = "";
@@ -22,8 +22,8 @@ const searchMeal = () => {
 
 const printMeal = (data) => {
   if (!data) {
-      errorMsg.innerHTML = `😥 No Result Found! 😓`;
-      spinner('none')
+    errorMsg.innerHTML = `😥 No Result Found! 😓`;
+    spinner("none");
   } else {
     data?.forEach((element) => {
       const div = document.createElement("div");
@@ -34,19 +34,39 @@ const printMeal = (data) => {
           <div class="card-body">
             <h4 class="card-title">${element.strMeal}</h4>
             <h6 class="card-text">${element.strCategory}</h6>
-            <button onclick="" class="btn btn-primary">See Details</button>
+            <button onclick="singleItem(${element.idMeal})" class="btn btn-primary">See Details</button>
           </div>
         </div>
         `;
 
-        mealContainer.appendChild(div);
-        spinner('none')
+      mealContainer.appendChild(div);
+      spinner("none");
     });
   }
 };
 
+const singleItem = (meal) => {
+  fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal}`)
+    .then((res) => res.json())
+    .then((json) => printSingle(json.meals[0]));
+};
+
+const printSingle = (singleItem) => {
+  console.log(singleItem);
+
+  mealContainer.innerHTML = `
+  <div class="card text-center" style="width: 18rem;">
+    <img src="${singleItem.strMealThumb}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">${singleItem.strMeal}</h5>
+      <p class="card-text">${singleItem.strCategory}</p>
+      <a href="${singleItem.strYoutube}" class="btn btn-primary">Wathc Video</a>
+    </div>
+  </div>
+  `;
+};
 
 // Spinner On/Off Function
-const spinner = style => {
-    document.getElementById('spinner').style.display = style
-}
+const spinner = (style) => {
+  document.getElementById("spinner").style.display = style;
+};
