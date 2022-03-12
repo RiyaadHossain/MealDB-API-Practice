@@ -1,7 +1,16 @@
+
+
 const mealContainer = document.getElementById("meal-container");
 const inputMeal = document.getElementById("input-meal");
 const errorMsg = document.getElementById("error-msg");
 
+// Enter Key 
+inputMeal.addEventListener('keyup', (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault()
+    document.getElementById('btn').click()
+  }
+})
 const searchMeal = () => {
   const inputValue = inputMeal.value;
   if (inputValue === "") {
